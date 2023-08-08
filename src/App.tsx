@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './Routes/Home';
 import ValidationContext from './Context/ValidationContext';
 import { IList } from './Context/ValidationContext';
 import Nav from './Nav';
+import Account from './Routes/Account';
+import Login from './Routes/Login';
+import ErrorPage from './Routes/ErrorPage';
 
 function App() {
   const [accessToken, setAccessToken] = useState<String>('');
@@ -26,13 +30,18 @@ function App() {
     {
       path: '/',
       element: <Nav />,
-      children: [{ index: true, element: <Home /> }],
+      errorElement: <ErrorPage />,
+      children: [
+        { index: true, element: <Home /> },
+        {
+          path: 'account',
+          element: <Account />,
+          errorElement: <ErrorPage />,
+          children: [{ path: 'login', element: <Login /> }],
+        },
+      ],
     },
   ]);
-
-  useEffect(() => {
-    console.log(accessToken);
-  }, [accessToken]);
 
   return (
     <div className='App'>
