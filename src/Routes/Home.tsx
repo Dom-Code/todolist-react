@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import ValidationContext from '../Hooks/ValidationContext';
+import ValidationContext from '../Context/ValidationContext';
 
 const Home = () => {
   const data = useContext(ValidationContext);

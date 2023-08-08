@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './Routes/Home';
-import ValidationContext from './Hooks/ValidationContext';
-import { IList } from './Hooks/ValidationContext';
+import ValidationContext from './Context/ValidationContext';
+import { IList } from './Context/ValidationContext';
+import Nav from './Nav';
 
 function App() {
   const [accessToken, setAccessToken] = useState<String>('');
@@ -25,6 +25,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
+      element: <Nav />,
       children: [{ index: true, element: <Home /> }],
     },
   ]);
