@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 // import { LoginProps } from './Account';
 import { Button, Col, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import './style/login.css';
-import ValidationContext from '../Context/ValidationContext';
+import '../style/Login.css';
+import ValidationContext from '../../Context/ValidationContext';
 
 const Login = () => {
-  // const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
@@ -16,7 +15,7 @@ const Login = () => {
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
   const navigate = useNavigate();
-  const { setAccessToken } = useContext(ValidationContext);
+  const data = useContext(ValidationContext);
 
   const submitLogin = (e: any) => {
     e.preventDefault();
@@ -34,10 +33,12 @@ const Login = () => {
         // console.log(response);
         const accessToken = response?.data?.accessToken;
         const refreshToken = response?.data?.refreshToken;
-        setAccessToken(accessToken);
+        data.setAccessToken(accessToken);
+        data.setIsValid(true);
 
         sessionStorage.setItem('todolistRefreshToken', refreshToken);
         handleShowModal();
+        navigate('/');
 
         setTimeout(() => {
           handleCloseModal();
@@ -121,7 +122,7 @@ const Login = () => {
       </Modal>
       <Button
         onClick={() => {
-          setAccessToken('');
+          data.setAccessToken('');
         }}
       >
         Delete access token

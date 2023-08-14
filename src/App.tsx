@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Home from './Routes/Home';
+import Home from './Components/Routes/Home';
 import ValidationContext from './Context/ValidationContext';
 import { IList } from './Context/ValidationContext';
 import Nav from './Nav';
-import Account from './Routes/Account';
-import Login from './Routes/Login';
-import ErrorPage from './Routes/ErrorPage';
+import Account from './Components/Routes/Account';
+import Login from './Components/Routes/Login';
+import ErrorPage from './Components/Routes/ErrorPage';
+import TodoListMain from './Components/Routes/TodoListMain';
+import Register from './Components/Routes/Register';
+import Logout from './Components/Routes/Logout';
 
 function App() {
   const [accessToken, setAccessToken] = useState<String>('');
@@ -33,11 +36,17 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         { index: true, element: <Home /> },
+        { path: 'todolists', element: <TodoListMain /> },
+
         {
           path: 'account',
           element: <Account />,
           errorElement: <ErrorPage />,
-          children: [{ path: 'login', element: <Login /> }],
+          children: [
+            { path: 'login', element: <Login /> },
+            { path: 'register', element: <Register /> },
+            { path: 'logout', element: <Logout /> },
+          ],
         },
       ],
     },
@@ -45,20 +54,6 @@ function App() {
 
   return (
     <div className='App'>
-      {/* <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header> */}
       <ValidationContext.Provider value={userContext}>
         <RouterProvider router={router} />
       </ValidationContext.Provider>

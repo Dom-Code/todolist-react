@@ -31,7 +31,7 @@ const AccountTabs = () => {
           }}
         >
           <Tab eventKey='/account' title='Account'></Tab>
-          <Tab eventKey='logout' title='Logout'></Tab>
+          <Tab eventKey='/account/logout' title='Logout'></Tab>
         </Tabs>
       ) : (
         <Tabs

@@ -17,7 +17,6 @@ const useAxiosPrivate = () => {
 
         // if a refresh token does not exist, throw error.
         // console.log(`Original Access Token ${accessToken}`);
-
         if (!config.headers['Authorization']) {
           if (accessToken.length === 0) {
             console.log('Request for new access token');
